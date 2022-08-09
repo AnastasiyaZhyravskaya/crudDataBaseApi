@@ -9,9 +9,23 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Entity
 @Table(name = "regions")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonSerialize
+@JsonAutoDetect
 public class Region {
 
 	@Id
@@ -22,31 +36,7 @@ public class Region {
 	
 	@Column(name = "name")
 	@NotBlank(message = "Name is required field")
-	@NotEmpty(message = "Name is required field")
 	private String name;
-
 	
-	public Region() {	}
-
-	public Region(String name) {
-		this.name = name;
-	}
-
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }

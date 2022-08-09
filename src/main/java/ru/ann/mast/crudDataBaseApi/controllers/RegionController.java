@@ -2,6 +2,8 @@ package ru.ann.mast.crudDataBaseApi.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,14 +35,13 @@ public class RegionController {
 	
 	
 	@PostMapping("/regions")
-	public Region addNewRegion(@RequestBody Region region){
-		regionService.saveRegion(region);
-		return region;
+	public Region addNewRegion(@RequestBody @Valid Region region){
+		return regionService.saveRegion(region);
 	}
 	
 	@PutMapping("/regions")
-	public Region updateRegion(@RequestBody Region region){
-		regionService.saveRegion(region);
+	public Region updateRegion(@RequestBody @Valid Region region){
+		regionService.updateRegion(region);
 		return region;
 	}
 	
@@ -49,5 +50,16 @@ public class RegionController {
 		regionService.deleteRegion(id);
 		return "region with id="+id+" was deleted";
 	}
+	
+	public String deleteAllRegion(){
+		regionService.deleteAllRegion();
+		return "all region was deleted";
+	}
+	
+	public String resetAutoIncrement() {
+		regionService.resetAutoIncrement();
+		return "AUTO_INCREMENT = 1";
+	}
+
 	
 }
