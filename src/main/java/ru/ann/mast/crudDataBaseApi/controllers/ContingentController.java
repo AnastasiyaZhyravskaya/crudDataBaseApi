@@ -3,6 +3,8 @@ package ru.ann.mast.crudDataBaseApi.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,21 +36,31 @@ public class ContingentController {
 	}
 	
 	@PostMapping("/contingents")
-	public Contingent addNewContingent(@RequestBody Contingent contingent){
+	public Contingent addNewContingent(@RequestBody @Valid Contingent contingent){
 		contingentService.saveContingent(contingent);
 		return contingent;
 	}
 	
 	@PutMapping("/contingents")
-	public Contingent updateContingent(@RequestBody Contingent contingent){
-		contingentService.saveContingent(contingent);
+	public Contingent updateContingent(@RequestBody @Valid Contingent contingent){
+		contingentService.updateContingent(contingent);
 		return contingent;
 	}
 	
 	@DeleteMapping("/contingents/{id}")
 	public String deleteContingent(@PathVariable int id){
 		contingentService.deleteContingent(id);
-		return "contingent with id="+id+" was deleted";
+		return "Contingent with id="+id+" was deleted";
+	}
+	
+	public String deleteAllContingent(){
+		contingentService.deleteAllContingent();
+		return "all contingent was deleted";
+	}
+	
+	public String resetAutoIncrement() {
+		contingentService.resetAutoIncrement();
+		return "AUTO_INCREMENT = 1";
 	}
 	
 }

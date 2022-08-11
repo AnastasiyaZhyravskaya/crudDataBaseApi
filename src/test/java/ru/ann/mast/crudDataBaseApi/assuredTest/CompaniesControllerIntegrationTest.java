@@ -31,11 +31,10 @@ import ru.ann.mast.crudDataBaseApi.entity.Region;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CompaniesControllerIntegrationTest {
-
-	private Region region;
-	
 	@LocalServerPort
 	private int port;
+	
+	private Region region;
 	
 	@Autowired
 	CompanyController companyController;
@@ -417,12 +416,12 @@ public class CompaniesControllerIntegrationTest {
 				.build();
 		companyUpdate.setId(id);
 
-		given().log().body().contentType("application/json")
+		given().contentType("application/json")
 				.body(companyUpdate)
 		
 		.when().put("/companies")
 		
-		.then().log().body().statusCode(HttpStatus.NOT_FOUND.value()).and()
+		.then().statusCode(HttpStatus.NOT_FOUND.value()).and()
 				.body("info", equalTo("Company is not found, id=0"));
 	}
 	
@@ -464,7 +463,7 @@ public class CompaniesControllerIntegrationTest {
 		Company companyUpdate = createTestCompany("Company_Update");
 		companyUpdate.setRepresentativePhone("8555");
 
-		given().log().body().contentType("application/json")
+		given().contentType("application/json")
 				.body(companyUpdate)
 		
 		.when().put("/companies")
@@ -480,7 +479,7 @@ public class CompaniesControllerIntegrationTest {
 		Company companyUpdate = createTestCompany("Company_Update");
 		companyUpdate.setRepresentativePhone("re");
 
-		given().log().body().contentType("application/json")
+		given().contentType("application/json")
 				.body(companyUpdate)
 		
 		.when().put("/companies")
@@ -496,12 +495,12 @@ public class CompaniesControllerIntegrationTest {
 		Company companyUpdate = createTestCompany("Company_Update");
 		companyUpdate.setRepresentativeEmail("gh");
 
-		given().log().body().contentType("application/json")
+		given().contentType("application/json")
 				.body(companyUpdate)
 		
 		.when().put("/companies")
 		
-		.then().log().body().statusCode(HttpStatus.BAD_REQUEST.value()).and()
+		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info",  equalTo("Method Argument Not Valid")).and()
 				.body("errors", hasItem("The email address must be in the format: pochta@gmal.ru"));
 	}
@@ -558,7 +557,7 @@ public class CompaniesControllerIntegrationTest {
 
 		.when().get("/companies")
 		
-		.then().log().body().statusCode(HttpStatus.OK.value()).and()
+		.then().statusCode(HttpStatus.OK.value()).and()
 				.body("size()", is(3)).and()
 				.body("[0].id", equalTo(company_1.getId())).and()
 				.body("[0].companyName", equalTo(company_1.getCompanyName())).and()

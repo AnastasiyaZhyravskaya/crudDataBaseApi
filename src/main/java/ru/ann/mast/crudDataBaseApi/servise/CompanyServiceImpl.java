@@ -1,7 +1,6 @@
 package ru.ann.mast.crudDataBaseApi.servise;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ru.ann.mast.crudDataBaseApi.dao.CompanyRepository;
 import ru.ann.mast.crudDataBaseApi.entity.Company;
-import ru.ann.mast.crudDataBaseApi.entity.Region;
 import ru.ann.mast.crudDataBaseApi.exceptionHandling.NoSuchException;
 
 @Service

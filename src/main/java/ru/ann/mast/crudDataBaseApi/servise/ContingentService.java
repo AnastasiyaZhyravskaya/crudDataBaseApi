@@ -11,7 +11,13 @@ public interface ContingentService {
 	
 	public void saveContingent(Contingent contingent);
 	
+	public Contingent updateContingent(Contingent contingent);
+	
 	public Contingent getContingent(int id);
 
 	public void deleteContingent(int id);
+	
+	public void deleteAllContingent();
+
+	public void resetAutoIncrement();
 }

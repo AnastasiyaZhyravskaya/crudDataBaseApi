@@ -58,9 +58,10 @@ public class CompanyController {
 		companyService.deleteCompany(id);
 		return "Company with id="+id+" was deleted";
 	}
+	
 	public String deleteAllCompany(){
 		companyService.deleteAllCompany();
-		return "all region was deleted";
+		return "all company was deleted";
 	}
 	
 	public String resetAutoIncrement() {
