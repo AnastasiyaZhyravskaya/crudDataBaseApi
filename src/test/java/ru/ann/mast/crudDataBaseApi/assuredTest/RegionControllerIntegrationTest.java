@@ -59,10 +59,9 @@ public class RegionControllerIntegrationTest {
 		
 		.when().post("/regions")
 		
-		.then().log().body()
+		.then().statusCode(HttpStatus.OK.value())
 				.body("name", equalTo(regionTest.getName())).and()
-				.body("id", not(0)).and()
-				.statusCode(HttpStatus.OK.value());
+				.body("id", not(0));
 	}
 	
 	@Test
@@ -121,7 +120,7 @@ public class RegionControllerIntegrationTest {
 		.when().get("/regions/{id}")
 		
 		.then().statusCode(HttpStatus.NOT_FOUND.value()).and()
-				.body("info", equalTo("Entity is not found, id=0"));
+				.body("info", equalTo("Region is not found, id=0"));
 
 	}
 	
@@ -171,7 +170,7 @@ public class RegionControllerIntegrationTest {
 		.when().put("/regions")
 		
 		.then().statusCode(HttpStatus.NOT_FOUND.value()).and()
-				.body("info", equalTo("Entity is not found, id=0"));
+				.body("info", equalTo("Region is not found, id=0"));
 	}
 	
 	@Test
@@ -223,7 +222,7 @@ public class RegionControllerIntegrationTest {
 		.when().delete("/regions/{id}")
 		
 		.then().statusCode(HttpStatus.OK.value()).and()
-				.body(equalTo("region with id="+id+" was deleted"));//null
+				.body(equalTo("region with id="+id+" was deleted"));
 	}
 	
 	@Test
@@ -235,7 +234,7 @@ public class RegionControllerIntegrationTest {
 		.when().delete("/regions/{id}")
 		
 		.then().statusCode(HttpStatus.NOT_FOUND.value()).and()
-				.body("info", equalTo("Entity is not found, id=0"));
+				.body("info", equalTo("Region is not found, id=0"));
 	}
 	
 	@Test

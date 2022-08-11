@@ -31,7 +31,7 @@ public class RegionServiceImpl implements RegionService {
 	@Override
 	public Region updateRegion(Region region) {
 		regionRepository.findById(region.getId()).orElseThrow(() -> 
-		new NoSuchException("Entity is not found, id="+region.getId()));
+				new NoSuchException("Region is not found, id="+region.getId()));
 		return regionRepository.save(region);
 	}
 
@@ -39,7 +39,7 @@ public class RegionServiceImpl implements RegionService {
 	@Override
 	public Region getRegion(int id) {
 		Region region = regionRepository.findById(id).orElseThrow(() -> 
-				new NoSuchException("Entity is not found, id="+id));
+				new NoSuchException("Region is not found, id="+id));
 		return region;
 	};
 
@@ -49,6 +49,7 @@ public class RegionServiceImpl implements RegionService {
 		regionRepository.deleteById(id);
 	};
 	
+	@Override
 	public void deleteAllRegion() {
 		regionRepository.deleteAll();
 	}
@@ -57,7 +58,7 @@ public class RegionServiceImpl implements RegionService {
     private JdbcTemplate jdbcTemplate;
 	
 	public void resetAutoIncrement() {
-		jdbcTemplate.update("ALTER TABLE mastdatabasetest.regions AUTO_INCREMENT = 1");
+		jdbcTemplate.update("ALTER TABLE regions AUTO_INCREMENT = 1");
 
 	}
 	

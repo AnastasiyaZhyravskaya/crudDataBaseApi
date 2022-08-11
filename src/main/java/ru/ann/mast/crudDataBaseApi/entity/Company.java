@@ -12,15 +12,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "companys")
+@Table(name = "companies")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonSerialize
+@JsonAutoDetect
 public class Company {
 
 	@Id
@@ -29,7 +43,6 @@ public class Company {
 	private int id;
 	
 	@NotBlank(message = "Name is required field")
-	@NotEmpty(message = "Name is required field")
 	@Column(name = "company_name")
 	private String companyName;
 	
@@ -38,18 +51,20 @@ public class Company {
 	
 	@Column(name = "representative_phone")
 	 @Size(min = 6, max = 11, message 
-     = "phonee must be between 6 and 11 symvols")
-	@Pattern(regexp = "^\\d+$")
+     = "Phone must be between 6 and 11 symvols")
+	@Pattern(regexp = "^\\d+$", message 
+		     = "Phone is only digits")
 	private String representativePhone;
 	
 	
-	@Pattern(message = "должно соответствовать формату pochta@gmal.ru", 
+	@Pattern(message = "The email address must be in the format: pochta@gmal.ru", 
 			regexp = "^[A-Za-z0-9._%+-]+@[a-zA-Z0-9-]+.[a-zA-z]{2,4}$")
 	@Column(name = "representative_email")
 	private String representativeEmail;
 	
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "region_id")
 	private Region regionOfCompany;
 	
@@ -58,69 +73,5 @@ public class Company {
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	private int regionID;
 	
-	
-	public Company() {	}
-
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getRepresentativeOfCompany() {
-		return representativeOfCompany;
-	}
-
-	public void setRepresentativeOfCompany(String representativeOfCompany) {
-		this.representativeOfCompany = representativeOfCompany;
-	}
-
-	public String getRepresentativePhone() {
-		return representativePhone;
-	}
-
-	public void setRepresentativePhone(String representativePhone) {
-		this.representativePhone = representativePhone;
-	}
-
-	public String getRepresentativeEmail() {
-		return representativeEmail;
-	}
-
-	public void setRepresentativeEmail(String representativeEmail) {
-		this.representativeEmail = representativeEmail;
-	}
-
-
-	public Region getRegionOfCompany() {
-		return regionOfCompany;
-	}
-
-
-	public void setRegionOfCompany(Region regionOfCompany) {
-		this.regionOfCompany = regionOfCompany;
-	}
-
-
-
-	public int getRegionID() {
-		return regionID;
-	}
-
-
-	public void setRegionID(int regionID) {
-		this.regionID = regionID;
-	}
 
 }

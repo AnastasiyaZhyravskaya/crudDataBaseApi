@@ -3,6 +3,8 @@ package ru.ann.mast.crudDataBaseApi.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,34 +29,42 @@ public class CompanyController {
 
 	
 	
-	@GetMapping("/companys")
+	@GetMapping("/companies")
 	public List<Company> getAllCompanys(){
 		return companyService.getAllCompanys();
 	}
 	
-	@GetMapping("/companys/{id}")
+	@GetMapping("/companies/{id}")
 	public Company getCompany(@PathVariable int id){
 		return companyService.getCompany(id);
 	}
 	
-	@PostMapping("/companys")
-	public Company addNewCompany(@RequestBody Company company){
+	@PostMapping("/companies")
+	public Company addNewCompany(@RequestBody @Valid Company company){
 		company.setRegionOfCompany(regionService.getRegion(company.getRegionID()));
 		companyService.saveCompany(company);
 		return company;
 	}
 	
-	@PutMapping("/companys")
-	public Company updateCompany(@RequestBody Company company){
+	@PutMapping("/companies")
+	public Company updateCompany(@RequestBody @Valid Company company){
 		company.setRegionOfCompany(regionService.getRegion(company.getRegionID()));
-		companyService.saveCompany(company);
+		companyService.updateCompany(company);
 		return company;
 	}
 	
-	@DeleteMapping("/companys/{id}")
+	@DeleteMapping("/companies/{id}")
 	public String deleteCompany(@PathVariable int id){
 		companyService.deleteCompany(id);
-		return "company with id="+id+" was deleted";
+		return "Company with id="+id+" was deleted";
+	}
+	public String deleteAllCompany(){
+		companyService.deleteAllCompany();
+		return "all region was deleted";
 	}
 	
+	public String resetAutoIncrement() {
+		companyService.resetAutoIncrement();
+		return "AUTO_INCREMENT = 1";
+	}
 }
