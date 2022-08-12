@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,7 @@ import ru.ann.mast.crudDataBaseApi.entity.Region;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CompaniesControllerIntegrationTest {
+public class CompanyControllerIntegrationTest {
 	@LocalServerPort
 	private int port;
 	
@@ -59,7 +60,7 @@ public class CompaniesControllerIntegrationTest {
 		companyController.resetAutoIncrement();
 	}
 	
-	@BeforeAll
+	@AfterAll
 	public void teardown() {
 		regionController.deleteAllRegion();
 		regionController.resetAutoIncrement();
@@ -74,7 +75,7 @@ public class CompaniesControllerIntegrationTest {
 										.representativeOfCompany("Test_representativeOfCompany")
 										.representativePhone("8546214752")
 										.representativeEmail("test@mail.ru")
-										.regionID(region.getId()).build();
+										.region(region).build();
 												
 		Company retrievedCompany = 
 		given().contentType("application/json")
@@ -82,13 +83,11 @@ public class CompaniesControllerIntegrationTest {
 		
 		.when().post("/companies")
 		
-		.then().statusCode(HttpStatus.OK.value()).and()
-				.body("id", equalTo(1)).and()
-				.body("regionOfCompany.id", equalTo(region.getId())).and()
-				.body("regionOfCompany.name", equalTo(region.getName()))
+		.then().log().body() .statusCode(HttpStatus.OK.value()).and()
+				.body("id", equalTo(1))
 		.extract().as(Company.class);
 		assertThat(testCompany).usingRecursiveComparison()
-        						.ignoringFields("id", "regionOfCompany")
+        						.ignoringFields("id")
         						.isEqualTo(retrievedCompany);
 	}
 	
@@ -97,7 +96,7 @@ public class CompaniesControllerIntegrationTest {
 
 		Company testCompany = Company.builder()
 										.companyName("Test_company_name")
-										.regionID(region.getId()).build();
+										.region(region).build();
 												
 		Company retrievedCompany = 
 		given().contentType("application/json")
@@ -107,11 +106,9 @@ public class CompaniesControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.OK.value()).and()
 				.body("id", equalTo(1)).and()
-				.body("regionOfCompany.id", equalTo(region.getId())).and()
-				.body("regionOfCompany.name", equalTo(region.getName()))
 		.extract().as(Company.class);
 		assertThat(testCompany).usingRecursiveComparison()
-        						.ignoringFields("id", "regionOfCompany")
+        						.ignoringFields("id")
         						.isEqualTo(retrievedCompany);
 	}
 	
@@ -120,7 +117,7 @@ public class CompaniesControllerIntegrationTest {
 
 		Company testCompany = Company.builder()
 										.companyName(null)
-										.regionID(region.getId()).build();
+										.region(region).build();
 												
 		given().contentType("application/json")
 				.body(testCompany)
@@ -137,7 +134,7 @@ public class CompaniesControllerIntegrationTest {
 
 		Company testCompany = Company.builder()
 										.companyName("     ")
-										.regionID(region.getId()).build();
+										.region(region).build();
 												
 		given().contentType("application/json")
 				.body(testCompany)
@@ -153,9 +150,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_phone5_badRequest() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativePhone("12345")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativePhone("12345")
+										.region(region).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
@@ -171,9 +168,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_phone6_success() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativePhone("123456")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativePhone("123456")
+										.region(region).build();
 						
 		Company retrievedCompany = 
 		given().contentType("application/json")
@@ -182,10 +179,10 @@ public class CompaniesControllerIntegrationTest {
 		.when().post("/companies")
 
 		.then().statusCode(HttpStatus.OK.value()).and()
-				.body("id", equalTo(1)).and()
+				.body("id", equalTo(1))
 				.extract().as(Company.class);
 		assertThat(testCompany).usingRecursiveComparison()
-				.ignoringFields("id", "regionOfCompany")
+				.ignoringFields("id")
 				.isEqualTo(retrievedCompany);
 	}
 	
@@ -193,9 +190,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_phone11_success() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativePhone("12345678910")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativePhone("12345678910")
+										.region(region).build();
 						
 		Company retrievedCompany = 
 		given().contentType("application/json")
@@ -204,10 +201,10 @@ public class CompaniesControllerIntegrationTest {
 		.when().post("/companies")
 
 		.then().statusCode(HttpStatus.OK.value()).and()
-				.body("id", equalTo(1)).and()
+				.body("id", equalTo(1))
 				.extract().as(Company.class);
 		assertThat(testCompany).usingRecursiveComparison()
-				.ignoringFields("id", "regionOfCompany")
+				.ignoringFields("id")
 				.isEqualTo(retrievedCompany);
 	}
 	
@@ -215,9 +212,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_phone12_badRequest() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativePhone("123456789112")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativePhone("123456789112")
+										.region(region).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
@@ -233,9 +230,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_phoneNotDigits_badRequest() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativePhone("qwertyu")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativePhone("qwertyu")
+										.region(region).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
@@ -251,9 +248,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_emailNotFormat1_badRequest() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativeEmail("qweqwe")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativeEmail("qweqwe")
+										.region(region).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
@@ -269,9 +266,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_emailNotFormat2_badRequest() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativeEmail("qweqwe@gh.f")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativeEmail("qweqwe@gh.f")
+										.region(region).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
@@ -287,9 +284,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_emailNotFormat3_badRequest() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativeEmail("@mail.rd")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativeEmail("@mail.rd")
+										.region(region).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
@@ -305,9 +302,9 @@ public class CompaniesControllerIntegrationTest {
 	public void addNewCompany_emailNotFormat4_badRequest() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name")
-				.representativeEmail("!ff@mail")
-				.regionID(region.getId()).build();
+										.companyName("Test_company_name")
+										.representativeEmail("!ff@mail")
+										.region(region).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
@@ -320,21 +317,41 @@ public class CompaniesControllerIntegrationTest {
 	}
 	
 	@Test
-	public void addNewCompany_noRegion_badRequest() {
+	public void addNewCompany_nullRegion_success() {
 
 		Company testCompany = Company.builder()
-				.companyName("Test_company_name").build();
+										.companyName("Test_company_name").build();
+						
+		Company retrievedCompany = 
+		given().contentType("application/json")
+				.body(testCompany)
+
+		.when().post("/companies")
+
+		.then().statusCode(HttpStatus.OK.value()).and()
+				.body("id", equalTo(1))
+				.extract().as(Company.class);
+		assertThat(testCompany).usingRecursiveComparison()
+				.ignoringFields("id")
+				.isEqualTo(retrievedCompany);
+	}
+	
+	@Test
+	public void addNewCompany_noRegion_badRequest() {
+		Region regionTest = Region.builder().name("region").build();
+		Company testCompany = Company.builder()
+										.companyName("Test_company_name")
+										.region(regionTest).build();
 						
 		given().contentType("application/json")
 				.body(testCompany)
 
 		.when().post("/companies")
 
-		.then().statusCode(HttpStatus.NOT_FOUND.value()).and()
-				.body("info", equalTo("Region is not found, id=0"));
+		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
+				.body("info", equalTo("Unsaved object was passed in the request"));
 	}
 
-	
 	
 
 	@Test
@@ -351,7 +368,6 @@ public class CompaniesControllerIntegrationTest {
 				.extract().as(Company.class);
 		
 		assertThat(testCompany).usingRecursiveComparison()
-				.ignoringFields("regionID")
 				.isEqualTo(retrievedCompany);
 	}
 		
@@ -411,9 +427,8 @@ public class CompaniesControllerIntegrationTest {
 		int id = 0;
 		
 		Company companyUpdate = Company.builder()
-				.companyName("Company_Update")
-				.regionID(region.getId())
-				.build();
+									.companyName("Company_Update")
+									.region(region).build();
 		companyUpdate.setId(id);
 
 		given().contentType("application/json")
@@ -434,7 +449,7 @@ public class CompaniesControllerIntegrationTest {
 		given().contentType("application/json")
 				.body(companyUpdate)
 		
-		.when().post("/companies")
+		.when().put("/companies")
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
@@ -450,7 +465,7 @@ public class CompaniesControllerIntegrationTest {
 		given().contentType("application/json")
 				.body(companyUpdate)
 		
-		.when().post("/companies")
+		.when().put("/companies")
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
@@ -552,7 +567,7 @@ public class CompaniesControllerIntegrationTest {
 		Company company_1 = createTestCompany(UUID.randomUUID().toString());
 		createTestCompany(UUID.randomUUID().toString());
 		createTestCompany(UUID.randomUUID().toString());
-		
+
 		given().contentType("application/json")
 
 		.when().get("/companies")
@@ -564,8 +579,8 @@ public class CompaniesControllerIntegrationTest {
 				.body("[1].representativeOfCompany", nullValue()).and()
 				.body("[1].representativePhone", nullValue()).and()
 				.body("[1].representativeEmail", nullValue()).and()
-				.body("[2].regionOfCompany.id", equalTo(region.getId())).and()
-				.body("[2].regionOfCompany.name", equalTo(region.getName()));
+				.body("[2].region.id", equalTo(region.getId())).and()
+				.body("[2].region.name", equalTo(region.getName()));
 	}
 	
 	@Test
@@ -582,7 +597,7 @@ public class CompaniesControllerIntegrationTest {
 	private Company createTestCompany(String name) {
 		Company testCompany = Company.builder()
 				.companyName(name)
-				.regionID(region.getId())
+				.region(region)
 				.build();
 		companyController.addNewCompany(testCompany);
 		return testCompany;

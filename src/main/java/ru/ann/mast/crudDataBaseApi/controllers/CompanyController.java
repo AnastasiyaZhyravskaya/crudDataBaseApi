@@ -16,18 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ru.ann.mast.crudDataBaseApi.entity.Company;
 import ru.ann.mast.crudDataBaseApi.servise.CompanyService;
-import ru.ann.mast.crudDataBaseApi.servise.RegionService;
-
 
 @RestController
 public class CompanyController {
 	
 	@Autowired
-	private CompanyService companyService;
-	@Autowired
-	private RegionService regionService;
-
-	
+	private CompanyService companyService;	
 	
 	@GetMapping("/companies")
 	public List<Company> getAllCompanys(){
@@ -41,14 +35,12 @@ public class CompanyController {
 	
 	@PostMapping("/companies")
 	public Company addNewCompany(@RequestBody @Valid Company company){
-		company.setRegionOfCompany(regionService.getRegion(company.getRegionID()));
 		companyService.saveCompany(company);
 		return company;
 	}
 	
 	@PutMapping("/companies")
 	public Company updateCompany(@RequestBody @Valid Company company){
-		company.setRegionOfCompany(regionService.getRegion(company.getRegionID()));
 		companyService.updateCompany(company);
 		return company;
 	}

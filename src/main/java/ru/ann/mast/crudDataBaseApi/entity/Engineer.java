@@ -8,16 +8,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.annotations.Cascade;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "engineers")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonSerialize
+@JsonAutoDetect
 public class Engineer {
 
 	@Id
@@ -26,77 +38,16 @@ public class Engineer {
 	private int id;
 	
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})//если удалить работника, то детали о нем тоже удаляться
-	@JsonIgnoreProperties("engineer")
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "contingent_id")
+	@NotNull(message = "Contingent is required field")
 	private Contingent contingent;
 	
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinColumn(name = "region_id")//внешний ключ
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@JoinColumn(name = "region_id")
+	@NotNull(message = "Region is required field")
 	private Region region;
-	
-	
-	@Transient
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	private int contingentId;
-	
-	@Transient
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	private int regionId;
-	
-	
-	public Engineer() {	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public Region getRegion() {
-		return region;
-	}
-
-
-	public void setRegion(Region region) {
-		this.region = region;
-	}
-
-
-	public Contingent getContingent() {
-		return contingent;
-	}
-
-
-	public void setContingent(Contingent contingent) {
-		this.contingent = contingent;
-	}
-
-
-	public int getContingentId() {
-		return contingentId;
-	}
-
-
-	public void setContingentId(int contingentId) {
-		this.contingentId = contingentId;
-	}
-
-
-	public int getRegionId() {
-		return regionId;
-	}
-
-
-	public void setRegionId(int regionId) {
-		this.regionId = regionId;
-	}
-	
-	
 }

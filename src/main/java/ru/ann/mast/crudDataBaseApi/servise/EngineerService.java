@@ -9,11 +9,16 @@ public interface EngineerService {
 	
 	public List<Engineer> getAllEngineers();
 	
-	public void saveEngineer(Engineer engineer);
+	public Engineer saveEngineer(Engineer engineer);
+	
+	public Engineer updateEngineer(Engineer engineer);
 	
 	public Engineer getEngineer(int id);
 
 	public void deleteEngineer(int id);
 
+	public void deleteAllEngineer();
+
+	public void resetAutoIncrement();
 
 }

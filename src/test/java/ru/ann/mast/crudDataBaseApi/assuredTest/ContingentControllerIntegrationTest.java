@@ -259,7 +259,7 @@ public class ContingentControllerIntegrationTest {
 		given().contentType("application/json")
 				.body(contingentUpdate)
 		
-		.when().post("/contingents")
+		.when().put("/contingents")
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
@@ -275,7 +275,7 @@ public class ContingentControllerIntegrationTest {
 		given().contentType("application/json")
 				.body(contingentUpdate)
 		
-		.when().post("/contingents")
+		.when().put("/contingents")
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
@@ -291,7 +291,7 @@ public class ContingentControllerIntegrationTest {
 		given().contentType("application/json")
 				.body(contingentUpdate)
 		
-		.when().post("/contingents")
+		.when().put("/contingents")
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
@@ -307,7 +307,7 @@ public class ContingentControllerIntegrationTest {
 		given().contentType("application/json")
 				.body(contingentUpdate)
 		
-		.when().post("/contingents")
+		.when().put("/contingents")
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()

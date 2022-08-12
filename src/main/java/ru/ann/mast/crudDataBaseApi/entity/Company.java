@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -18,7 +17,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
@@ -66,12 +64,6 @@ public class Company {
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "region_id")
-	private Region regionOfCompany;
-	
-	
-	@Transient
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	private int regionID;
-	
+	private Region region;
 
 }

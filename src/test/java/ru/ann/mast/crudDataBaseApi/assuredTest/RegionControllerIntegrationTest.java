@@ -54,14 +54,13 @@ public class RegionControllerIntegrationTest {
 		Region regionTest = Region.builder().name(UUID.randomUUID().toString()).build();
 		
 		given()
-		//.log().body()
 		.contentType("application/json").body(regionTest)
 		
 		.when().post("/regions")
 		
 		.then().statusCode(HttpStatus.OK.value())
-				.body("name", equalTo(regionTest.getName())).and()
-				.body("id", not(0));
+				.body("id", equalTo(1))
+				.body("name", equalTo(regionTest.getName()));
 	}
 	
 	@Test
@@ -106,9 +105,8 @@ public class RegionControllerIntegrationTest {
 		.when().get("/regions/{id}")
 		
 		.then().statusCode(HttpStatus.OK.value()).and()
-				.body("name", equalTo("Region_Get")).and()
-				.body("id", equalTo(id));
-
+				.body("id", equalTo(id))
+				.body("name", equalTo("Region_Get"));
 	}
 	
 	@Test
@@ -134,7 +132,6 @@ public class RegionControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("The parameter 'id' of value 'id' could not be converted to type 'int'"));
-
 	}
 
 	
@@ -152,8 +149,8 @@ public class RegionControllerIntegrationTest {
 		.when().put("/regions")
 		
 		.then().statusCode(HttpStatus.OK.value()).and()
-				.body("name", equalTo("Region_Update_2")).and()
-				.body("id", equalTo(id));
+				.body("id", equalTo(id)).and()
+				.body("name", equalTo("Region_Update_2"));
 	}
 	
 	@Test

@@ -1,18 +1,22 @@
 package ru.ann.mast.crudDataBaseApi.entity;
 
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Cascade;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -48,11 +52,11 @@ public class Contingent {
 	@Column(name = "patronymic")
 	private String patronymic;
 
-	
+	@JsonIgnore
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	@JsonIgnoreProperties("contingent")
-	@OneToOne(mappedBy = "contingent",
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})//если удалить работника, то детали о нем тоже удаляться
-	private Engineer engineer;
+	@OneToMany(mappedBy = "contingent",
+			cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private List<Engineer> engineers;
 	
 }
