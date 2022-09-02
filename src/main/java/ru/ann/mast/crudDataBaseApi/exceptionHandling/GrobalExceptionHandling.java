@@ -18,27 +18,29 @@ public class GrobalExceptionHandling {
 	@ExceptionHandler
 	public ResponseEntity<IncorrectData> handlerException(
 			Exception exception) {
-		IncorrectData data = new IncorrectData();
-		data.setInfo(exception.getMessage());
+		IncorrectData incorrectData = new IncorrectData();
+		incorrectData.setInfo(exception.getMessage());
 		
-		return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(incorrectData, HttpStatus.BAD_REQUEST);
 		
 	}
 
 		@ExceptionHandler
 		public ResponseEntity<IncorrectData> handlerException(
 				NoSuchException exception) {
-			IncorrectData data = new IncorrectData();
-			data.setInfo(exception.getMessage());
-			
-			return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
+			IncorrectData incorrectData = new IncorrectData();
+			incorrectData.setInfo(exception.getMessage());
+	
+			return new ResponseEntity<>(incorrectData, HttpStatus.NOT_FOUND);
 			
 		}
 		
 		
 		@ExceptionHandler
 		public ResponseEntity<IncorrectData> handlerException(HttpMessageNotReadableException ex) {
-			IncorrectData incorrectData = new IncorrectData("Malformed JSON Request", ex.getMessage());
+			IncorrectData incorrectData = new IncorrectData();
+			incorrectData.setInfo("Malformed JSON Request");
+			incorrectData.setDebugMessage(ex.getMessage());
 		    return new ResponseEntity<>(incorrectData, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -67,7 +69,7 @@ public class GrobalExceptionHandling {
 		public ResponseEntity<IncorrectData> handlerException(InvalidDataAccessApiUsageException ex) {
 			IncorrectData incorrectData = new IncorrectData();
 			incorrectData.setInfo("Unsaved object was passed in the request");
-		     
+			incorrectData.setDebugMessage(ex.getMessage());
 		    return new ResponseEntity<>(incorrectData, HttpStatus.BAD_REQUEST);
 		}
 	

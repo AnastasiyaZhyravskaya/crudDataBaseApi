@@ -17,6 +17,9 @@ public class IncorrectData {
 	
 	private String info;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String debugMessage;
+	
    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> errors;
     

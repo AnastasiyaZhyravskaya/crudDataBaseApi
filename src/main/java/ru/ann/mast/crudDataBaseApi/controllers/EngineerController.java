@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.ann.mast.crudDataBaseApi.entity.Engineer;
-import ru.ann.mast.crudDataBaseApi.servise.ContingentService;
 import ru.ann.mast.crudDataBaseApi.servise.EngineerService;
-import ru.ann.mast.crudDataBaseApi.servise.RegionService;
 
 
 @RestController
@@ -25,12 +23,6 @@ public class EngineerController {
 	
 	@Autowired
 	private EngineerService engineerService;
-	
-	@Autowired
-	private ContingentService contingentService;
-	
-	@Autowired
-	private RegionService regionService;
 	
 	@GetMapping("/engineers")
 	public List<Engineer> getAllEmployees(){

@@ -110,7 +110,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -129,7 +129,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -148,7 +148,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -167,7 +167,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -263,7 +263,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -279,7 +279,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -295,7 +295,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -311,7 +311,7 @@ public class ContingentControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test

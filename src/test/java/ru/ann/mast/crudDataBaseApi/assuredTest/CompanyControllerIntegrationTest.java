@@ -126,7 +126,7 @@ public class CompanyControllerIntegrationTest {
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -143,7 +143,7 @@ public class CompanyControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -161,7 +161,7 @@ public class CompanyControllerIntegrationTest {
 
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Phone must be between 6 and 11 symvols")));
+				.body("errors", hasItem("Phone must be between 6 and 11 symvols"));
 	}
 	
 	@Test
@@ -223,7 +223,7 @@ public class CompanyControllerIntegrationTest {
 
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Phone must be between 6 and 11 symvols")));
+				.body("errors", hasItem("Phone must be between 6 and 11 symvols"));
 	}
 	
 	@Test
@@ -241,7 +241,7 @@ public class CompanyControllerIntegrationTest {
 
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Phone is only digits")));
+				.body("errors", hasItem("Phone is only digits"));
 	}
 	
 	@Test
@@ -259,7 +259,7 @@ public class CompanyControllerIntegrationTest {
 
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("The email address must be in the format: pochta@gmal.ru")));
+				.body("errors", hasItem("The email address must be in the format: pochta@gmal.ru"));
 	}
 	
 	@Test
@@ -277,7 +277,7 @@ public class CompanyControllerIntegrationTest {
 
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("The email address must be in the format: pochta@gmal.ru")));
+				.body("errors", hasItem("The email address must be in the format: pochta@gmal.ru"));
 	}
 	
 	@Test
@@ -295,7 +295,7 @@ public class CompanyControllerIntegrationTest {
 
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("The email address must be in the format: pochta@gmal.ru")));
+				.body("errors", hasItem("The email address must be in the format: pochta@gmal.ru"));
 	}
 	
 	@Test
@@ -313,7 +313,7 @@ public class CompanyControllerIntegrationTest {
 
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("The email address must be in the format: pochta@gmal.ru")));
+				.body("errors", hasItem("The email address must be in the format: pochta@gmal.ru"));
 	}
 	
 	@Test
@@ -453,7 +453,7 @@ public class CompanyControllerIntegrationTest {
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -469,7 +469,7 @@ public class CompanyControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -485,7 +485,7 @@ public class CompanyControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Phone must be between 6 and 11 symvols")));
+				.body("errors", hasItem("Phone must be between 6 and 11 symvols"));
 	}
 	
 	@Test
@@ -501,7 +501,7 @@ public class CompanyControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Phone is only digits")));
+				.body("errors", hasItem("Phone is only digits"));
 	}
 	
 	@Test

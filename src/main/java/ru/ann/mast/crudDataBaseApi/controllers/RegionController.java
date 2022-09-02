@@ -48,12 +48,12 @@ public class RegionController {
 	@DeleteMapping("/regions/{id}")
 	public String deleteRegion(@PathVariable int id){
 		regionService.deleteRegion(id);
-		return "region with id="+id+" was deleted";
+		return "Region with id="+id+" was deleted";
 	}
 	
 	public String deleteAllRegion(){
 		regionService.deleteAllRegion();
-		return "all region was deleted";
+		return "All region was deleted";
 	}
 	
 	public String resetAutoIncrement() {

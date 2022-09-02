@@ -75,7 +75,7 @@ public class RegionControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class RegionControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	
@@ -185,7 +185,7 @@ public class RegionControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	@Test
@@ -203,7 +203,7 @@ public class RegionControllerIntegrationTest {
 		
 		.then().statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Name is required field")));
+				.body("errors", hasItem("Name is required field"));
 	}
 	
 	
@@ -219,7 +219,7 @@ public class RegionControllerIntegrationTest {
 		.when().delete("/regions/{id}")
 		
 		.then().statusCode(HttpStatus.OK.value()).and()
-				.body(equalTo("region with id="+id+" was deleted"));
+				.body(equalTo("Region with id="+id+" was deleted"));
 	}
 	
 	@Test

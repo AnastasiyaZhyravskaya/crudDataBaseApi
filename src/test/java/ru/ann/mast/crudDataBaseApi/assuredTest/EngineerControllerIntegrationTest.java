@@ -271,7 +271,7 @@ public class EngineerControllerIntegrationTest {
 		
 		.then()	.statusCode(HttpStatus.BAD_REQUEST.value()).and()
 				.body("info", equalTo("Method Argument Not Valid")).and()
-				.body("errors", hasItem(("Region is required field")));
+				.body("errors", hasItem("Region is required field"));
 	}
 	
 	@Test

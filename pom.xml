@@ -93,6 +93,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>CompanyControllerIntegrationTest.java</include>
+						<include>ContingentControllerIntegrationTest.java</include>
+						<include>EngineerControllerIntegrationTest.java</include>
+						<include>RegionControllerIntegrationTest.java</include>
+						<include>RegionControllerMockTest.java</include>
+					</includes>
+				</configuration>
+			</plugin>
 
 		</plugins>
 	</build>
