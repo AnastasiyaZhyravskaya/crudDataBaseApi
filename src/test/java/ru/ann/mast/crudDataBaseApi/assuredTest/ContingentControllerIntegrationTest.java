@@ -353,7 +353,7 @@ public class ContingentControllerIntegrationTest {
 	}
 	
 	@Test
-	public void getAllCompanies_success() {
+	public void getAllContingent_success() {
 		Contingent contingent_1 = createTestContingent();
 		Contingent contingent_2 = createTestContingent();
 		Contingent contingent_3 = createTestContingent();
@@ -371,7 +371,7 @@ public class ContingentControllerIntegrationTest {
 	}
 	
 	@Test
-	public void getAllCompanies_noCompanies_success() {
+	public void getAllContingent_noContingent_success() {
 		
 		given().contentType("application/json")
 
