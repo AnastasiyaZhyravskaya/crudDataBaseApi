@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @ControllerAdvice
 public class GrobalExceptionHandling {
@@ -33,6 +34,15 @@ public class GrobalExceptionHandling {
 	
 			return new ResponseEntity<>(incorrectData, HttpStatus.NOT_FOUND);
 			
+		}
+		
+		
+		@ExceptionHandler
+		public ResponseEntity<IncorrectData> handlerException(DataIntegrityViolationException ex) {
+			IncorrectData incorrectData = new IncorrectData();
+			incorrectData.setInfo("Exceeded the allowed number of characters");
+			incorrectData.setDebugMessage(ex.getMessage());
+		    return new ResponseEntity<>(incorrectData, HttpStatus.BAD_REQUEST);
 		}
 		
 		
